@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>Beveiliging Dashboard</title>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #111;
+        color: white;
+    }
+    h1 {
+        text-align: center;
+        padding: 20px;
+    }
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+        padding: 20px;
+    }
+    .card {
+        background: #1e1e1e;
+        border-radius: 12px;
+        padding: 15px;
+    }
+    .card h2 {
+        margin-top: 0;
+        font-size: 18px;
+        border-bottom: 1px solid #333;
+        padding-bottom: 5px;
+    }
+    button {
+        width: 100%;
+        padding: 12px;
+        margin: 6px 0;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        cursor: pointer;
+        background-color: #2a2a2a;
+        color: white;
+    }
+    button:hover {
+        background-color: #444;
+    }
+    .alert {
+        background-color: #8b0000;
+    }
+</style>
+
+<script>
+function openLink(url, newWindow=false) {
+    if(newWindow){
+        window.open(url, '_blank', 'width=1200,height=800');
+    } else {
+        window.location.href = url;
+    }
+}
+</script>
+
+</head>
+<body>
+
+<h1>🔒 Beveiliging Dashboard</h1>
+
+<div class="grid">
+
+    <!-- RAPPORTAGE -->
+    <div class="card">
+        <h2>📄 Rapportage</h2>
+        <button onclick="openLink('LINK_HIER')">Dienstrapport aanmaken</button>
+        <button onclick="openLink('LINK_HIER')">Map dienstrapporten</button>
+        <button onclick="openLink('LINK_HIER')">Logboek (Excel)</button>
+    </div>
+
+    <!-- BEVEILIGING -->
+    <div class="card">
+        <h2>📹 Beveiliging</h2>
+        <button onclick="openLink('LINK_HIER', true)">Camerabeelden</button>
+        <button onclick="openLink('LINK_HIER')">Bewegingsmelder</button>
+        <button onclick="openLink('LINK_HIER')">EFRIS Siemens</button>
+        <button onclick="openLink('LINK_HIER')">Pneuman</button>
+    </div>
+
+    <!-- SYSTEMEN -->
+    <div class="card">
+        <h2>🏥 Systemen</h2>
+        <button onclick="openLink('LINK_HIER')">HIX</button>
+        <button onclick="openLink('LINK_HIER')">Ultimo</button>
+        <button onclick="openLink('LINK_HIER')">OK-oproep</button>
+    </div>
+
+    <!-- LOGISTIEK -->
+    <div class="card">
+        <h2>📦 Logistiek</h2>
+        <button onclick="openLink('LINK_HIER')">Magazijn bestellingen</button>
+        <button onclick="openLink('LINK_HIER')">Lockers openen</button>
+    </div>
+
+    <!-- OVERIG -->
+    <div class="card">
+        <h2>📑 Overig</h2>
+        <button onclick="openLink('LINK_HIER')">Mailbox</button>
+        <button onclick="openLink('LINK_HIER')">Koelkast temperatuur</button>
+        <button onclick="openLink('LINK_HIER')">Gevonden voorwerpen</button>
+        <button onclick="openLink('LINK_HIER')">Sleutellijst</button>
+        <button onclick="openLink('LINK_HIER')">Specialisme bereikbaarheid</button>
+    </div>
+
+</div>
+
+</body>
+</html>
