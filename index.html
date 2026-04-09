@@ -9,20 +9,34 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
     color: white;
-    background: radial-gradient(circle at top, #1a1a1a, #000000);
+    background: url('background.jpg') no-repeat center center fixed;
+    background-size: cover;
 }
 
-/* Top bar */
+/* overlay voor leesbaarheid */
+.overlay {
+    background: rgba(0,0,0,0.75);
+    min-height: 100vh;
+}
+
+/* topbar */
 .topbar {
     display: flex;
     justify-content: space-between;
     padding: 15px 25px;
-    background: #111;
+    background: rgba(0,0,0,0.8);
     border-bottom: 2px solid #222;
-    font-size: 18px;
 }
 
-/* Grid */
+/* meldingen banner */
+.alertbar {
+    background: #8b0000;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* grid */
 .grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -30,21 +44,14 @@ body {
     padding: 20px;
 }
 
-/* Cards */
+/* cards */
 .card {
-    background: rgba(30,30,30,0.9);
+    background: rgba(20,20,20,0.9);
     border-radius: 14px;
     padding: 15px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.6);
 }
 
-.card h2 {
-    margin: 0 0 10px;
-    border-bottom: 1px solid #333;
-    padding-bottom: 5px;
-}
-
-/* Buttons */
+/* knoppen */
 button {
     width: 100%;
     padding: 16px;
@@ -55,7 +62,6 @@ button {
     background: #2a2a2a;
     color: white;
     cursor: pointer;
-    transition: 0.2s;
 }
 
 button:hover {
@@ -63,34 +69,21 @@ button:hover {
     transform: scale(1.03);
 }
 
-button:active {
-    transform: scale(0.98);
-}
-
-/* Alert button */
 .alert {
-    background: #8b0000;
-}
-
-/* Footer */
-.footer {
-    text-align: center;
-    padding: 10px;
-    font-size: 12px;
-    color: #888;
+    background: #b30000;
 }
 </style>
 
 <script>
 function openLink(url, newWindow=false) {
     if(newWindow){
-        window.open(url, '_blank', 'width=1200,height=800');
+        window.open(url, '_blank');
     } else {
         window.location.href = url;
     }
 }
 
-/* Live klok */
+/* klok */
 function updateClock() {
     const now = new Date();
     document.getElementById("clock").innerHTML =
@@ -98,75 +91,73 @@ function updateClock() {
 }
 setInterval(updateClock, 1000);
 
-/* Sneltoetsen */
-document.addEventListener("keydown", function(e){
-    switch(e.key){
-        case "1": openLink("LINK_CAMERA", true); break;
-        case "2": openLink("LINK_HIX"); break;
-        case "3": openLink("LINK_MAIL"); break;
-        case "4": openLink("LINK_LOGBOEK"); break;
-    }
-});
+/* meldingen (simulatie) */
+let alerts = [
+    "Geen actieve meldingen",
+    "Brandmelding OK afdeling",
+    "Deuralarm SEH ingang"
+];
+
+function updateAlert(){
+    let random = alerts[Math.floor(Math.random()*alerts.length)];
+    document.getElementById("alert").innerText = random;
+}
+setInterval(updateAlert, 5000);
 </script>
 
 </head>
 
 <body onload="updateClock()">
+<div class="overlay">
 
 <div class="topbar">
     <div>🔒 Beveiliging Loge</div>
     <div id="clock"></div>
 </div>
 
+<div class="alertbar" id="alert">
+Geen actieve meldingen
+</div>
+
 <div class="grid">
 
-<!-- RAPPORTAGE -->
 <div class="card">
 <h2>📄 Rapportage</h2>
-<button onclick="openLink('LINK_HIER')">Dienstrapport</button>
-<button onclick="openLink('LINK_HIER')">Rapporten map</button>
-<button onclick="openLink('LINK_LOGBOEK')">Logboek</button>
+<button onclick="openLink('LINK')">Dienstrapport</button>
+<button onclick="openLink('LINK')">Rapporten</button>
+<button onclick="openLink('LINK')">Logboek</button>
 </div>
 
-<!-- BEVEILIGING -->
 <div class="card">
 <h2>📹 Beveiliging</h2>
-<button class="alert" onclick="openLink('LINK_CAMERA', true)">Camerabeelden</button>
-<button onclick="openLink('LINK_HIER')">Bewegingsmelder</button>
-<button onclick="openLink('LINK_HIER')">EFRIS Siemens</button>
-<button onclick="openLink('LINK_HIER')">Pneuman</button>
+<button class="alert" onclick="openLink('LINK', true)">Camerabeelden</button>
+<button onclick="openLink('LINK')">Bewegingsmelder</button>
+<button onclick="openLink('LINK')">EFRIS</button>
+<button onclick="openLink('LINK')">Pneuman</button>
 </div>
 
-<!-- SYSTEMEN -->
 <div class="card">
 <h2>🏥 Systemen</h2>
-<button onclick="openLink('LINK_HIX')">HIX</button>
-<button onclick="openLink('LINK_HIER')">Ultimo</button>
-<button onclick="openLink('LINK_HIER')">OK-oproep</button>
+<button onclick="openLink('LINK')">HIX</button>
+<button onclick="openLink('LINK')">Ultimo</button>
+<button onclick="openLink('LINK')">OK-oproep</button>
 </div>
 
-<!-- LOGISTIEK -->
 <div class="card">
 <h2>📦 Logistiek</h2>
-<button onclick="openLink('LINK_HIER')">Magazijn</button>
-<button onclick="openLink('LINK_HIER')">Lockers</button>
+<button onclick="openLink('LINK')">Magazijn</button>
+<button onclick="openLink('LINK')">Lockers</button>
 </div>
 
-<!-- OVERIG -->
 <div class="card">
 <h2>📑 Overig</h2>
-<button onclick="openLink('LINK_MAIL')">Mailbox</button>
-<button onclick="openLink('LINK_HIER')">Koelkast temp</button>
-<button onclick="openLink('LINK_HIER')">Gevonden voorwerpen</button>
-<button onclick="openLink('LINK_HIER')">Sleutellijst</button>
-<button onclick="openLink('LINK_HIER')">Bereikbaarheid</button>
+<button onclick="openLink('LINK')">Mailbox</button>
+<button onclick="openLink('LINK')">Koelkast</button>
+<button onclick="openLink('LINK')">Sleutels</button>
+<button onclick="openLink('LINK')">Bereikbaarheid</button>
 </div>
 
 </div>
-
-<div class="footer">
-Sneltoetsen: 1 = Camera | 2 = HIX | 3 = Mail | 4 = Logboek
 </div>
-
 </body>
 </html>
