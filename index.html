@@ -3,51 +3,82 @@
 <head>
 <meta charset="UTF-8">
 <title>Beveiliging Dashboard</title>
+
 <style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background-color: #111;
-        color: white;
-    }
-    h1 {
-        text-align: center;
-        padding: 20px;
-    }
-    .grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 15px;
-        padding: 20px;
-    }
-    .card {
-        background: #1e1e1e;
-        border-radius: 12px;
-        padding: 15px;
-    }
-    .card h2 {
-        margin-top: 0;
-        font-size: 18px;
-        border-bottom: 1px solid #333;
-        padding-bottom: 5px;
-    }
-    button {
-        width: 100%;
-        padding: 12px;
-        margin: 6px 0;
-        border: none;
-        border-radius: 8px;
-        font-size: 14px;
-        cursor: pointer;
-        background-color: #2a2a2a;
-        color: white;
-    }
-    button:hover {
-        background-color: #444;
-    }
-    .alert {
-        background-color: #8b0000;
-    }
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: white;
+    background: radial-gradient(circle at top, #1a1a1a, #000000);
+}
+
+/* Top bar */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 25px;
+    background: #111;
+    border-bottom: 2px solid #222;
+    font-size: 18px;
+}
+
+/* Grid */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Cards */
+.card {
+    background: rgba(30,30,30,0.9);
+    border-radius: 14px;
+    padding: 15px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.6);
+}
+
+.card h2 {
+    margin: 0 0 10px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 5px;
+}
+
+/* Buttons */
+button {
+    width: 100%;
+    padding: 16px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    background: #2a2a2a;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:hover {
+    background: #444;
+    transform: scale(1.03);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+/* Alert button */
+.alert {
+    background: #8b0000;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 10px;
+    font-size: 12px;
+    color: #888;
+}
 </style>
 
 <script>
@@ -58,57 +89,83 @@ function openLink(url, newWindow=false) {
         window.location.href = url;
     }
 }
+
+/* Live klok */
+function updateClock() {
+    const now = new Date();
+    document.getElementById("clock").innerHTML =
+        now.toLocaleDateString() + " | " + now.toLocaleTimeString();
+}
+setInterval(updateClock, 1000);
+
+/* Sneltoetsen */
+document.addEventListener("keydown", function(e){
+    switch(e.key){
+        case "1": openLink("LINK_CAMERA", true); break;
+        case "2": openLink("LINK_HIX"); break;
+        case "3": openLink("LINK_MAIL"); break;
+        case "4": openLink("LINK_LOGBOEK"); break;
+    }
+});
 </script>
 
 </head>
-<body>
 
-<h1>🔒 Beveiliging Dashboard</h1>
+<body onload="updateClock()">
+
+<div class="topbar">
+    <div>🔒 Beveiliging Loge</div>
+    <div id="clock"></div>
+</div>
 
 <div class="grid">
 
-    <!-- RAPPORTAGE -->
-    <div class="card">
-        <h2>📄 Rapportage</h2>
-        <button onclick="openLink('LINK_HIER')">Dienstrapport aanmaken</button>
-        <button onclick="openLink('LINK_HIER')">Map dienstrapporten</button>
-        <button onclick="openLink('LINK_HIER')">Logboek (Excel)</button>
-    </div>
+<!-- RAPPORTAGE -->
+<div class="card">
+<h2>📄 Rapportage</h2>
+<button onclick="openLink('LINK_HIER')">Dienstrapport</button>
+<button onclick="openLink('LINK_HIER')">Rapporten map</button>
+<button onclick="openLink('LINK_LOGBOEK')">Logboek</button>
+</div>
 
-    <!-- BEVEILIGING -->
-    <div class="card">
-        <h2>📹 Beveiliging</h2>
-        <button onclick="openLink('LINK_HIER', true)">Camerabeelden</button>
-        <button onclick="openLink('LINK_HIER')">Bewegingsmelder</button>
-        <button onclick="openLink('LINK_HIER')">EFRIS Siemens</button>
-        <button onclick="openLink('LINK_HIER')">Pneuman</button>
-    </div>
+<!-- BEVEILIGING -->
+<div class="card">
+<h2>📹 Beveiliging</h2>
+<button class="alert" onclick="openLink('LINK_CAMERA', true)">Camerabeelden</button>
+<button onclick="openLink('LINK_HIER')">Bewegingsmelder</button>
+<button onclick="openLink('LINK_HIER')">EFRIS Siemens</button>
+<button onclick="openLink('LINK_HIER')">Pneuman</button>
+</div>
 
-    <!-- SYSTEMEN -->
-    <div class="card">
-        <h2>🏥 Systemen</h2>
-        <button onclick="openLink('LINK_HIER')">HIX</button>
-        <button onclick="openLink('LINK_HIER')">Ultimo</button>
-        <button onclick="openLink('LINK_HIER')">OK-oproep</button>
-    </div>
+<!-- SYSTEMEN -->
+<div class="card">
+<h2>🏥 Systemen</h2>
+<button onclick="openLink('LINK_HIX')">HIX</button>
+<button onclick="openLink('LINK_HIER')">Ultimo</button>
+<button onclick="openLink('LINK_HIER')">OK-oproep</button>
+</div>
 
-    <!-- LOGISTIEK -->
-    <div class="card">
-        <h2>📦 Logistiek</h2>
-        <button onclick="openLink('LINK_HIER')">Magazijn bestellingen</button>
-        <button onclick="openLink('LINK_HIER')">Lockers openen</button>
-    </div>
+<!-- LOGISTIEK -->
+<div class="card">
+<h2>📦 Logistiek</h2>
+<button onclick="openLink('LINK_HIER')">Magazijn</button>
+<button onclick="openLink('LINK_HIER')">Lockers</button>
+</div>
 
-    <!-- OVERIG -->
-    <div class="card">
-        <h2>📑 Overig</h2>
-        <button onclick="openLink('LINK_HIER')">Mailbox</button>
-        <button onclick="openLink('LINK_HIER')">Koelkast temperatuur</button>
-        <button onclick="openLink('LINK_HIER')">Gevonden voorwerpen</button>
-        <button onclick="openLink('LINK_HIER')">Sleutellijst</button>
-        <button onclick="openLink('LINK_HIER')">Specialisme bereikbaarheid</button>
-    </div>
+<!-- OVERIG -->
+<div class="card">
+<h2>📑 Overig</h2>
+<button onclick="openLink('LINK_MAIL')">Mailbox</button>
+<button onclick="openLink('LINK_HIER')">Koelkast temp</button>
+<button onclick="openLink('LINK_HIER')">Gevonden voorwerpen</button>
+<button onclick="openLink('LINK_HIER')">Sleutellijst</button>
+<button onclick="openLink('LINK_HIER')">Bereikbaarheid</button>
+</div>
 
+</div>
+
+<div class="footer">
+Sneltoetsen: 1 = Camera | 2 = HIX | 3 = Mail | 4 = Logboek
 </div>
 
 </body>
