@@ -9,8 +9,11 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
     color: white;
-    background: url('background.jpg') no-repeat center center fixed;
+
+    background-image: url('background.jpg');
     background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
 }
 
 /* overlay voor leesbaarheid */
@@ -24,11 +27,12 @@ body {
     display: flex;
     justify-content: space-between;
     padding: 15px 25px;
-    background: rgba(0,0,0,0.8);
+    background: rgba(0,0,0,0.85);
     border-bottom: 2px solid #222;
+    font-size: 18px;
 }
 
-/* meldingen banner */
+/* meldingen balk */
 .alertbar {
     background: #8b0000;
     padding: 10px;
@@ -36,7 +40,7 @@ body {
     font-weight: bold;
 }
 
-/* grid */
+/* grid layout */
 .grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -62,6 +66,7 @@ button {
     background: #2a2a2a;
     color: white;
     cursor: pointer;
+    transition: 0.2s;
 }
 
 button:hover {
@@ -69,8 +74,20 @@ button:hover {
     transform: scale(1.03);
 }
 
+button:active {
+    transform: scale(0.98);
+}
+
 .alert {
     background: #b30000;
+}
+
+/* footer */
+.footer {
+    text-align: center;
+    padding: 10px;
+    font-size: 12px;
+    color: #aaa;
 }
 </style>
 
@@ -91,7 +108,7 @@ function updateClock() {
 }
 setInterval(updateClock, 1000);
 
-/* meldingen (simulatie) */
+/* meldingen simulatie */
 let alerts = [
     "Geen actieve meldingen",
     "Brandmelding OK afdeling",
@@ -103,6 +120,16 @@ function updateAlert(){
     document.getElementById("alert").innerText = random;
 }
 setInterval(updateAlert, 5000);
+
+/* sneltoetsen */
+document.addEventListener("keydown", function(e){
+    switch(e.key){
+        case "1": openLink("LINK_CAMERA", true); break;
+        case "2": openLink("LINK_HIX"); break;
+        case "3": openLink("LINK_MAIL"); break;
+        case "4": openLink("LINK_LOGBOEK"); break;
+    }
+});
 </script>
 
 </head>
@@ -110,54 +137,68 @@ setInterval(updateAlert, 5000);
 <body onload="updateClock()">
 <div class="overlay">
 
+<!-- TOP -->
 <div class="topbar">
     <div>🔒 Beveiliging Loge</div>
     <div id="clock"></div>
 </div>
 
+<!-- MELDINGEN -->
 <div class="alertbar" id="alert">
 Geen actieve meldingen
 </div>
 
+<!-- GRID -->
 <div class="grid">
 
+<!-- RAPPORTAGE -->
 <div class="card">
 <h2>📄 Rapportage</h2>
-<button onclick="openLink('LINK')">Dienstrapport</button>
-<button onclick="openLink('LINK')">Rapporten</button>
-<button onclick="openLink('LINK')">Logboek</button>
+<button onclick="openLink('LINK_DIENSTRAPPORT')">Dienstrapport</button>
+<button onclick="openLink('LINK_RAPPORTEN')">Rapporten map</button>
+<button onclick="openLink('LINK_LOGBOEK')">Logboek</button>
 </div>
 
+<!-- BEVEILIGING -->
 <div class="card">
 <h2>📹 Beveiliging</h2>
-<button class="alert" onclick="openLink('LINK', true)">Camerabeelden</button>
-<button onclick="openLink('LINK')">Bewegingsmelder</button>
-<button onclick="openLink('LINK')">EFRIS</button>
-<button onclick="openLink('LINK')">Pneuman</button>
+<button class="alert" onclick="openLink('LINK_CAMERA', true)">Camerabeelden</button>
+<button onclick="openLink('LINK_BEWEGING')">Bewegingsmelder</button>
+<button onclick="openLink('LINK_EFRIS')">EFRIS Siemens</button>
+<button onclick="openLink('LINK_PNEUMAN')">Pneuman</button>
 </div>
 
+<!-- SYSTEMEN -->
 <div class="card">
 <h2>🏥 Systemen</h2>
-<button onclick="openLink('LINK')">HIX</button>
-<button onclick="openLink('LINK')">Ultimo</button>
-<button onclick="openLink('LINK')">OK-oproep</button>
+<button onclick="openLink('LINK_HIX')">HIX</button>
+<button onclick="openLink('LINK_ULTIMO')">Ultimo</button>
+<button onclick="openLink('LINK_OK')">OK-oproep</button>
 </div>
 
+<!-- LOGISTIEK -->
 <div class="card">
 <h2>📦 Logistiek</h2>
-<button onclick="openLink('LINK')">Magazijn</button>
-<button onclick="openLink('LINK')">Lockers</button>
+<button onclick="openLink('LINK_MAGAZIJN')">Magazijn</button>
+<button onclick="openLink('LINK_LOCKERS')">Lockers</button>
 </div>
 
+<!-- OVERIG -->
 <div class="card">
 <h2>📑 Overig</h2>
-<button onclick="openLink('LINK')">Mailbox</button>
-<button onclick="openLink('LINK')">Koelkast</button>
-<button onclick="openLink('LINK')">Sleutels</button>
-<button onclick="openLink('LINK')">Bereikbaarheid</button>
+<button onclick="openLink('LINK_MAIL')">Mailbox</button>
+<button onclick="openLink('LINK_KOELKAST')">Koelkast temperatuur</button>
+<button onclick="openLink('LINK_GEVONDEN')">Gevonden voorwerpen</button>
+<button onclick="openLink('LINK_SLEUTELS')">Sleutellijst</button>
+<button onclick="openLink('LINK_BEREIKBAARHEID')">Bereikbaarheid</button>
 </div>
 
 </div>
+
+<div class="footer">
+Sneltoetsen: 1 = Camera | 2 = HIX | 3 = Mail | 4 = Logboek
+</div>
+
 </div>
 </body>
 </html>
